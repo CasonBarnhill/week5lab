@@ -16,6 +16,27 @@ namespace week5lab.Controllers
     {
         private LibraryDBContext db = new LibraryDBContext();
 
+        [Route("api/books/CheckIn/{bookid}")]
+        [HttpPost]
+        public IHttpActionResult CheckIn(int bookid)
+        {
+            Book book = db.Books.Find(bookid);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            var checkOutRow = book.Checkouts.FirstOrDefault(x => x.ReturnDate == null);
+            if (checkOutRow == null)
+
+            return BadRequest("Book checked out");
+
+            checkOutRow.ReturnDate = DateTime.Now;
+
+            db.SaveChanges();
+                    
+            return Ok();
+        }
+
         [Route("api/books/Checkout")]
         public IHttpActionResult CheckOut(CheckOutInfo info)
         {
@@ -31,6 +52,13 @@ namespace week5lab.Controllers
                 return NotFound();
             }
 
+            var isAlreadyCheckedOut = book.Checkouts.Any(x => x.ReturnDate == null);
+
+            if (isAlreadyCheckedOut)
+            {
+                return BadRequest("Is already checked out");
+            }
+
             CheckedOutBook cob = new CheckedOutBook();
             cob.Student = student;
             cob.Book = book;
@@ -39,6 +67,8 @@ namespace week5lab.Controllers
 
             db.CheckedOutBooks.Add(cob);
             db.SaveChanges();
+
+           
 
             var result = new { cob.CheckOutDate, cob.DueDate, cob.Book.BookId, cob.Student.StudentId };
             return Ok(result);
@@ -100,6 +130,8 @@ namespace week5lab.Controllers
         {
             throw new NotImplementedException();
         }
+
+      
 
         // POST: api/Books
 

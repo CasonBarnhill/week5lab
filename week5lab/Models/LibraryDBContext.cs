@@ -48,8 +48,8 @@ namespace week5lab.Models
     public class CheckedOutBook
     {
         public int Id { get; set; }
-        public Book Book { get; set; }
-        public Student Student { get; set; }
+        public virtual Book Book { get; set; }
+        public virtual Student Student { get; set; }
         public DateTime CheckOutDate { get; set; }
         public DateTime? DueDate { get; set; }
         public DateTime? ReturnDate { get; set; }

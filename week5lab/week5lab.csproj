@@ -116,6 +116,7 @@
       <DependentUpon>201511231827283_BookDates.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CheckInInfo.cs" />
     <Compile Include="Models\CheckOutInfo.cs" />
     <Compile Include="Models\LibraryDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

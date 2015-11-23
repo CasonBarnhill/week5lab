@@ -5,17 +5,11 @@ using System.Web;
 
 namespace week5lab.Models
 {
-    public class CheckOutInfo
+    public class CheckInInfo
     {
         public int BookId
         {
             get; set;
         }
-        public int StudentId
-        {
-            get; set;
-        }
-
     }
-    
 }
